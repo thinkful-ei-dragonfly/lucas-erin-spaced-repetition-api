@@ -34,6 +34,10 @@ const LanguageService = {
       )
       .where({ language_id })
   },
+
+  populateLinkedList(language, words){
+    
+  }
 }
 
 module.exports = LanguageService

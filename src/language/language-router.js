@@ -65,8 +65,23 @@ languageRouter
 
 languageRouter
   .post('/guess', async (req, res, next) => {
-    // implement me
-    res.send('implement me!')
+    
+    try{
+      const { guess } = res.body;
+      if(!guess){
+        return res.status(400).json({
+          error: `Missing 'guess' in request body`
+        })
+      }
+
+      const words = await LanguageService.getLanguageWords(
+        req.app.get('db'),
+        req.language.id
+      )
+
+      res.send(words)
+    }
+    // res.send('implement me!')
   })
 
 module.exports = languageRouter
