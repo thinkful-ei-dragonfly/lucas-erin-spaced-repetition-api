@@ -43,7 +43,7 @@ const LanguageService = {
     ll.name = language.name
     ll.total_score = language.total_score
 
-    console.log('LangHead:',language.head);  // <-- just testing during development
+    // console.log('LangHead:',language.head);  // <-- just testing during development
 
     let word = words.find(w => w.id === language.id)
 
@@ -69,9 +69,62 @@ const LanguageService = {
       })
     }
 
-    console.log(JSON.stringify(ll, null, 2));
+    // console.log(JSON.stringify(ll, null, 2));
     return ll
 
+  },
+  updateTotalScore(ll){
+    let currentNode = ll.head;
+    let totalScore = ll.head.value.correct_count
+
+    while(currentNode.next !== null){
+      currentNode = currentNode.next;
+      totalScore+= currentNode.value.correct_count
+    }
+
+    return totalScore;
+  },
+  display(ll){
+    let result = [];
+    let currentNode = ll.head;
+    while(currentNode !== null){
+      result.push(currentNode);
+      currentNode = currentNode.next;
+    }
+    return result;
+  },
+  spacedRepetitionAlgorithm(ll, guess) {
+    let head = ll.head.value
+    console.log(head);
+    // ask the question
+
+    if (guess === head.translation) {
+      head.memory_value *= 2
+      head.correct_count++
+
+      ll.totalScore = this.updateTotalScore(ll)
+
+    } else {
+      head.memory_value = 1
+      head.incorrect_count++
+    }
+
+    ll.insertAt(head, head.memory_value + 1)
+    // inserts the item currently at head at a new value
+    ll.remove(head)
+    // removes the head, because it's at the ll.head position
+
+
+
+//     return {
+//   "nextWord": "test-next-word-from-correct-guess",
+//   "wordCorrectCount": 111,
+//   "wordIncorrectCount": 222,
+//   "totalScore": 333,
+//   "answer": "test-answer-from-correct-guess",
+//   "isCorrect": true
+// }
+    return this.display(ll)
   }
 }
 

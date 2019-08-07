@@ -84,9 +84,19 @@ languageRouter
         req.language,
         words
       )
+
+      const newLL = LanguageService.spacedRepetitionAlgorithm(ll, guess)
       return res
         .status(200)
-        .send(words)
+        .send(newLL)
+        // .send({
+        //   "nextWord": "test-next-word-from-correct-guess",
+        //   "wordCorrectCount": 111,
+        //   "wordIncorrectCount": 222,
+        //   "totalScore": 333,
+        //   "answer": "test-answer-from-correct-guess",
+        //   "isCorrect": true
+        // })
     }
     catch(error){
       console.log(error)

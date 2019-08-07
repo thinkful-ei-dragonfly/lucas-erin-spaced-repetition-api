@@ -24,6 +24,32 @@ class LinkedList {
       tempNode.next = new _Node(item, null)
     }
   }
+  insertBefore(item, key) {
+     let currNode = this.head;
+     let prevNode = this.head;
+
+     if( this.head === null) {
+       this.head = new _Node(item, this.head);
+     }
+     while(currNode.value !== key) {
+         prevNode = currNode;
+         currNode = currNode.next;
+     }
+     prevNode.next = new _Node(item, currNode);
+  }
+  insertAt(item, location) {
+     let currNode = this.head;
+     let count = 1;
+     if(location === 0){
+       this.head = new _Node(item, currNode);
+       return;
+     }
+     while (count < location) {
+       currNode = currNode.next;
+       count ++;
+     }
+     currNode.next = new _Node(item, currNode.next);
+ }
   find(item) {
     let currNode = this.head
 
@@ -69,6 +95,9 @@ class LinkedList {
     }
     prevNode.next = currNode.next
   }
+
+  
+
 }
 
 module.exports = LinkedList
