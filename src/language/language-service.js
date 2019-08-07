@@ -14,9 +14,11 @@ const LanguageService = {
       .where('language.user_id', user_id)
       .first()
   },
-  getLanguageHead(db) {
+  
+  getLanguageHead(db, user_id) {
     return db
       .from('language')
+      .where('language.user_id', user_id)
       .innerJoin('word', 'language.head', 'word.id')
       .first()
   },
