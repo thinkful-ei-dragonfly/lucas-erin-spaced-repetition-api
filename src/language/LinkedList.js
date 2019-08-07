@@ -8,10 +8,10 @@ class _Node {
 class LinkedList {
   constructor() {
     this.head = null
-  },
+  }
   insertFirst(item) {
     this.head = new _Node(item, this.head)
-  },
+  }
   insertLast(item) {
     if (this.head === null) {
       this.insertFirst(item)
@@ -23,7 +23,7 @@ class LinkedList {
       }
       tempNode.next = new _Node(item, null)
     }
-  },
+  }
   find(item) {
     let currNode = this.head
 
@@ -45,7 +45,7 @@ class LinkedList {
       }
     }
     return currNode
-  },
+  }
   remove(item) {
     // if it's empty
     if (!this.head) {
@@ -70,3 +70,5 @@ class LinkedList {
     prevNode.next = currNode.next
   }
 }
+
+module.exports = LinkedList

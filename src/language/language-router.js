@@ -79,7 +79,14 @@ languageRouter
         req.language.id
       )
 
-      return res.status(200).send(words)
+      // return res.status(200).send(words)
+      const ll = LanguageService.populateLinkedList(
+        req.language,
+        words
+      )
+      return res
+        .status(200)
+        .send(ll)
     }
     catch(error){
       console.log(error)
