@@ -86,7 +86,7 @@ languageRouter
       )
       return res
         .status(200)
-        .send(ll)
+        .send(words)
     }
     catch(error){
       console.log(error)
