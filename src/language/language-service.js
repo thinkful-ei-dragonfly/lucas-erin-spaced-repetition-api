@@ -45,7 +45,7 @@ const LanguageService = {
 
     // console.log('LangHead:',language.head);  // <-- just testing during development
 
-    let word = words.find(w => w.id === language.id)
+    let word = words.find(w => w.id === language.head)
 
     ll.insertFirst({
       id: word.id,
@@ -84,6 +84,7 @@ const LanguageService = {
 
     return totalScore;
   },
+
   display(ll){
     let result = [];
     let currentNode = ll.head;
@@ -93,38 +94,33 @@ const LanguageService = {
     }
     return result;
   },
-  spacedRepetitionAlgorithm(ll, guess) {
-    let head = ll.head.value
-    console.log(head);
-    // ask the question
+  persistLinkedList(db, linkedList) {
+    //   let nodeArray = this.display(linkedList)
+    console.log('LIST-LENGTH',linkedList.listNodes().length);
+    return db.transaction(trx =>
+      Promise.all([
+        db('language')
+          .transacting(trx)
+          .where('id', linkedList.id)
+          .update({
+            total_score: linkedList.total_score,
+            head: linkedList.head.value.id,
+          }),
+      //         nodeArray.forEach(node =>
+        ...linkedList.forEach(node =>
+          db('word')
+            .transacting(trx)
+            .where('id', node.value.id)
+            .update({
+              memory_value: node.value.memory_value,
+              correct_count: node.value.correct_count,
+              incorrect_count: node.value.incorrect_count,
+              next: node.next ? node.next.value.id : null,
+            })
+        )
+      ])
+    )
 
-    if (guess === head.translation) {
-      head.memory_value *= 2
-      head.correct_count++
-
-      ll.totalScore = this.updateTotalScore(ll)
-
-    } else {
-      head.memory_value = 1
-      head.incorrect_count++
-    }
-
-    ll.insertAt(head, head.memory_value + 1)
-    // inserts the item currently at head at a new value
-    ll.remove(head)
-    // removes the head, because it's at the ll.head position
-
-
-
-//     return {
-//   "nextWord": "test-next-word-from-correct-guess",
-//   "wordCorrectCount": 111,
-//   "wordIncorrectCount": 222,
-//   "totalScore": 333,
-//   "answer": "test-answer-from-correct-guess",
-//   "isCorrect": true
-// }
-    return this.display(ll)
   }
 }
 
