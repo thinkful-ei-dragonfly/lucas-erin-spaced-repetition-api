@@ -14,7 +14,7 @@ const LanguageService = {
       .where('language.user_id', user_id)
       .first()
   },
-  
+
   getLanguageHead(db, user_id) {
     return db
       .from('language')
@@ -45,7 +45,6 @@ const LanguageService = {
     ll.name = language.name
     ll.total_score = language.total_score
 
-    // console.log('LangHead:',language.head);  // <-- just testing during development
 
     let word = words.find(w => w.id === language.head)
 
@@ -71,7 +70,6 @@ const LanguageService = {
       })
     }
 
-    // console.log(JSON.stringify(ll, null, 2));
     return ll
 
   },
@@ -97,7 +95,6 @@ const LanguageService = {
     return result;
   },
   persistLinkedList(db, linkedList) {
-    //   let nodeArray = this.display(linkedList)
     console.log('LIST-LENGTH',linkedList.listNodes().length);
     return db.transaction(trx =>
       Promise.all([
@@ -108,7 +105,6 @@ const LanguageService = {
             total_score: linkedList.total_score,
             head: linkedList.head.value.id,
           }),
-      //         nodeArray.forEach(node =>
         ...linkedList.forEach(node =>
           db('word')
             .transacting(trx)
