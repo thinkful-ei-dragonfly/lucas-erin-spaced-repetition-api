@@ -100,7 +100,13 @@ languageRouter
 
       if (guess === answer) {
         isCorrect = true
-        ll.head.value.memory_value = parseInt(node.value.memory_value, 10) * 2
+        if(parseInt(node.value.memory_value, 10) === ll.listNodes().length -1){
+          ll.head.value.memory_value = parseInt(node.value.memory_value, 10)
+        } else if (parseInt(node.value.memory_value, 10) * 2 > ll.listNodes().length -1) {
+          ll.head.value.memory_value = ll.listNodes().length -1
+        } else {
+          ll.head.value.memory_value = parseInt(node.value.memory_value, 10) * 2
+        }
         ll.head.value.correct_count = parseInt(ll.head.value.correct_count, 10) + 1
         ll.total_score++
       } else {
@@ -115,8 +121,6 @@ languageRouter
         req.app.get('db'),
         ll
       )
-
-
 
       return res
         .status(200)

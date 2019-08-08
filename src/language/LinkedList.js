@@ -64,7 +64,7 @@ class LinkedList {
    }
    if (nthPosition === 0) {
      this.insertFirst(itemToInsert);
-   }else {
+   } else {
      // Find the node which we want to insert after
      const node = this._findNthElement(nthPosition - 1);
      const newNode = new _Node(itemToInsert, null);
