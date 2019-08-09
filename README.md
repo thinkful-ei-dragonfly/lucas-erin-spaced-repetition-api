@@ -1,4 +1,27 @@
-# Spaced repetition API!
+# Apprendere - Spaced Repetetion API
+
+## Overview
+
+Apprendere is an app which helps users learn Italian using “spaced repetition” to help memorize words in a foreign language.
+
+This app maintains a list of Italian words in a database that also includes records of a user’s total score, each word’s correct and incorrect count, and it’s current place in memory.
+
+## Screenshots
+
+### Dashboard
+![Words Dashboard](./dashboard.png)
+
+When the front end sends a guess, our backend server utilizes an algorithm to determine if the guess was correct or incorrect. As words are guessed correctly or incorrectly, those numbers increase accordingly and the words move up or down the list.
+
+### WordPage
+![WordPage](./wordpage.png)
+
+User is presented with the `head` of the linkedList and gets back the numbrer of correct and incorrect guesses on that word
+
+### Feedback
+![Feedback Page](./feedback.png)
+
+When the frontend requests the words again, the server responds with an updated list. Therefore, the user spends more time working on the words that they are having trouble with rather than the words they seem to already know.
 
 ## Local dev setup
 
