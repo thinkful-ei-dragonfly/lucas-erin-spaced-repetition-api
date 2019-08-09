@@ -61,8 +61,6 @@ languageRouter
     } catch (error) {
       next(error)
     }
-
-    // res.send('implement me!')
   })
 
 languageRouter
@@ -85,20 +83,14 @@ languageRouter
         words
       )
 
-      // const newLL = LanguageService.spacedRepetitionAlgorithm(
-      //   req.app.get('db'),
-      //   ll,
-      //   guess
-      // )
 
       const node = ll.head
       const answer = ll.head.value.translation
 
-      // console.log(`GUESS`, guess);
-      // console.log(`ANSWER`, answer);
+
       let isCorrect
 
-      if (guess === answer) {
+      if (guess.toLowerCase() === answer.toLowerCase()) {
         isCorrect = true
         if(parseInt(node.value.memory_value, 10) === ll.listNodes().length -1){
           ll.head.value.memory_value = parseInt(node.value.memory_value, 10)
@@ -132,47 +124,6 @@ languageRouter
           answer,
           isCorrect
         })
-
-        //   spacedRepetitionAlgorithm(ll, guess) {
-        //     let head = ll.head.value
-        //     console.log(`BEFORE`, head);
-        //     // ask the question
-        //
-        //     if (guess === head.translation) {
-        //       head.memory_value *= 2
-        //       head.correct_count++
-        //
-        //       ll.totalScore = LanguageService.updateTotalScore(ll)
-        //
-        //
-        //     } else {
-        //       head.memory_value = 1
-        //       head.incorrect_count++
-        //     }
-        //
-        //     ll.insertAt(head, head.memory_value + 1)
-        //     // inserts the item currently at head at a new value
-        //     ll.remove(head)
-        //     // removes the head, because it's at the ll.head position
-        //
-        //
-        //
-        // //     return {
-        // //   "nextWord": "test-next-word-from-correct-guess",
-        // //   "wordCorrectCount": 111,
-        // //   "wordIncorrectCount": 222,
-        // //   "totalScore": 333,
-        // //   "answer": "test-answer-from-correct-guess",
-        // //   "isCorrect": true
-        // // }
-        //     // console.log(`AFTER:`, head);
-        //     // return ll
-        //   // },
-        //
-        //   // LanguageService.persistLinkedList(
-        //   //   req.app.get('db'),
-        //   //   newLL
-        //   // )
     }
     catch(error){
       console.log(error)
